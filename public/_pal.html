@@ -1,0 +1,12 @@
+<!doctype html><html><body style="margin:0">
+<iframe id="f" src="/teacher" style="width:900px;height:700px;border:0"></iframe>
+<pre id="out"></pre>
+<script>
+localStorage.setItem('pelanggaran-session', JSON.stringify({username:'guru',role:'teacher',label:'Guru',home:'/teacher',ts:Date.now()}));
+const fr=document.getElementById('f');
+fr.addEventListener('load',()=>{setTimeout(()=>{try{
+ const w=fr.contentWindow,d=w.document;const cmd=d.querySelector('.cmd');if(cmd)cmd.click();
+ setTimeout(()=>{const bd=d.querySelector('.palette-backdrop');const mo=d.querySelector('.palette-modal');const r=mo?mo.getBoundingClientRect():null;
+ document.getElementById('out').textContent=JSON.stringify({backdrop:bd?w.getComputedStyle(bd).display:'none',modal:r?[r.x|0,r.y|0,r.width|0,r.height|0]:null,vw:w.innerWidth,vh:w.innerHeight,results:(d.querySelectorAll('.palette-result')||[]).length});
+ },450);}catch(e){document.getElementById('out').textContent='ERR '+e.message;}},1600);});
+</script></body></html>
