@@ -1,0 +1,408 @@
+/* Gaya bersama halaman guru (Murid, Guru, Pelanggaran, Laporan).
+   Warna teks memakai `inherit` dan latar memakai variable tema project,
+   jadi otomatis ikut mode terang/gelap (data-theme). */
+
+.tp-stack {
+  display: grid;
+  gap: 20px;
+}
+
+/* ---------- Kartu ---------- */
+.tp-card {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e4e8ef);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card, 0 1px 3px rgba(15, 23, 42, 0.06));
+  padding: 20px 22px;
+}
+
+.tp-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+/* ---------- Kartu statistik ---------- */
+.tp-stats {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.tp-stat {
+  --accent: #2563eb;
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e4e8ef);
+  border-left: 4px solid var(--accent);
+  border-radius: 14px;
+  box-shadow: var(--shadow-card, 0 1px 3px rgba(15, 23, 42, 0.06));
+  color: inherit;
+  font: inherit;
+  padding: 18px 20px;
+  text-align: left;
+}
+
+.tp-stat--violet { --accent: #8b5cf6; }
+.tp-stat--green { --accent: #10b981; }
+.tp-stat--red { --accent: #ef4444; }
+.tp-stat--amber { --accent: #f59e0b; }
+
+button.tp-stat {
+  cursor: pointer;
+  width: 100%;
+}
+
+button.tp-stat:hover,
+button.tp-stat.is-active {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.tp-stat-label {
+  align-items: center;
+  display: flex;
+  font-size: 13px;
+  gap: 8px;
+  opacity: 0.7;
+}
+
+.tp-stat-value {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-top: 6px;
+}
+
+.tp-stat-note {
+  font-size: 12px;
+  margin-top: 2px;
+  opacity: 0.55;
+}
+
+/* ---------- Toolbar, input, select ---------- */
+.tp-toolbar {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.tp-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tp-input,
+.tp-select,
+.tp-textarea {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e4e8ef);
+  border-radius: 10px;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  min-width: 0;
+  padding: 9px 14px;
+}
+
+.tp-input {
+  max-width: 320px;
+  width: 100%;
+}
+
+.tp-textarea {
+  resize: vertical;
+  width: 100%;
+}
+
+.tp-input:focus,
+.tp-select:focus,
+.tp-textarea:focus {
+  border-color: var(--primary, #2563eb);
+  outline: 2px solid rgba(37, 99, 235, 0.25);
+  outline-offset: 0;
+}
+
+/* ---------- Tabel ---------- */
+.tp-table-wrap {
+  overflow-x: auto;
+}
+
+.tp-table {
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+  width: 100%;
+}
+
+.tp-table th {
+  border-bottom: 1px solid var(--border, #e4e8ef);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 12px 14px;
+  white-space: nowrap;
+}
+
+.tp-table th > span {
+  opacity: 0.65;
+}
+
+.tp-table td {
+  border-bottom: 1px solid var(--border, #e4e8ef);
+  padding: 13px 14px;
+  vertical-align: middle;
+}
+
+.tp-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tp-strong {
+  font-weight: 600;
+}
+
+.tp-muted {
+  opacity: 0.6;
+}
+
+.tp-small {
+  font-size: 12px;
+}
+
+.tp-nowrap {
+  white-space: nowrap;
+}
+
+.tp-right {
+  text-align: right;
+}
+
+.tp-empty {
+  font-size: 14px;
+  opacity: 0.65;
+  padding: 36px 0;
+  text-align: center;
+}
+
+/* ---------- Badge & titik warna ---------- */
+.tp-badge {
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+
+.tp-badge--ok { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.tp-badge--warn { background: rgba(245, 158, 11, 0.17); color: #d97706; }
+.tp-badge--bad { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+.tp-badge--info { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.tp-badge--violet { background: rgba(139, 92, 246, 0.16); color: #8b5cf6; }
+.tp-badge--muted { background: rgba(100, 116, 139, 0.16); color: #64748b; }
+
+.tp-dot {
+  border-radius: 50%;
+  display: inline-block;
+  flex: none;
+  height: 10px;
+  width: 10px;
+}
+
+.tp-with-dot {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+}
+
+/* ---------- Tombol teks ---------- */
+.tp-link {
+  background: none;
+  border: 0;
+  color: var(--primary, #2563eb);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  padding: 0;
+}
+
+.tp-link:hover {
+  text-decoration: underline;
+}
+
+.tp-link--danger {
+  color: var(--danger, #ef4444);
+}
+
+/* ---------- Kartu guru ---------- */
+.tp-people {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.tp-person-head {
+  align-items: center;
+  display: flex;
+  gap: 14px;
+}
+
+.tp-avatar {
+  align-items: center;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  flex: none;
+  font-weight: 700;
+  height: 46px;
+  justify-content: center;
+  width: 46px;
+}
+
+.tp-person-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tp-dl {
+  border-top: 1px solid var(--border, #e4e8ef);
+  display: grid;
+  font-size: 14px;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding-top: 14px;
+}
+
+.tp-dl > div {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.tp-dl dt {
+  opacity: 0.6;
+}
+
+.tp-dl dd {
+  margin: 0;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+}
+
+/* ---------- Laporan: grafik batang ---------- */
+.tp-two {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.tp-bars {
+  display: grid;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tp-bar-head {
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.tp-bar-track {
+  background: rgba(100, 116, 139, 0.18);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+}
+
+.tp-bar-fill {
+  background: #3b82f6;
+  border-radius: 999px;
+  height: 100%;
+}
+
+.tp-bar-fill--violet {
+  background: #8b5cf6;
+}
+
+/* ---------- Modal ---------- */
+.tp-backdrop {
+  align-items: center;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 16px;
+  position: fixed;
+  z-index: 100;
+}
+
+.tp-modal {
+  background: var(--bg-card, #fff);
+  border: 1px solid var(--border, #e4e8ef);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.3);
+  color: inherit;
+  max-width: 440px;
+  padding: 24px;
+  width: 100%;
+}
+
+.tp-modal h2 {
+  font-size: 18px;
+  margin: 0 0 16px;
+}
+
+.tp-field {
+  display: grid;
+  font-size: 14px;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.tp-field > span {
+  opacity: 0.7;
+}
+
+.tp-error {
+  color: var(--danger, #ef4444);
+  font-size: 13px;
+  margin: 0 0 10px;
+}
+
+.tp-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.tp-table .sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@media print {
+  .tp-no-print {
+    display: none !important;
+  }
+}

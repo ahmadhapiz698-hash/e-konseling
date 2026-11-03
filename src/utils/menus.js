@@ -1,20 +1,19 @@
 export function getMenus(role, home) {
   const base = home || '/'
 
+  // Role yang halaman Murid, Guru, Pelanggaran, dan Laporan-nya sudah dibuat.
+  // Tambahkan role lain (mis. 'homeroom') ke daftar ini kalau halamannya sudah ada.
+  const hasPages = ['counselor', 'teacher'].includes(role)
+
+  const page = (label, path, icon) =>
+    hasPages ? { label, to: `${base}/${path}`, icon } : { label, href: '#', icon }
+
   const staff = [
     { label: 'Dashboard', to: base, icon: 'grid' },
-    role === 'counselor'
-      ? { label: 'Murid', to: `${base}/murid`, icon: 'users' }
-      : { label: 'Murid', href: '#', icon: 'users' },
-    role === 'counselor'
-      ? { label: 'Guru', to: `${base}/guru`, icon: 'graduation' }
-      : { label: 'Guru', href: '#', icon: 'graduation' },
-    role === 'counselor'
-      ? { label: 'Pelanggaran', to: `${base}/pelanggaran`, icon: 'alert' }
-      : { label: 'Pelanggaran', href: '#', icon: 'alert' },
-    role === 'counselor'
-      ? { label: 'Laporan', to: `${base}/laporan`, icon: 'chart' }
-      : { label: 'Laporan', href: '#', icon: 'chart' },
+    page('Murid', 'murid', 'users'),
+    page('Guru', 'guru', 'graduation'),
+    page('Pelanggaran', 'pelanggaran', 'alert'),
+    page('Laporan', 'laporan', 'chart'),
   ]
 
   const student = [
