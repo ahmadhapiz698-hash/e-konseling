@@ -24,6 +24,10 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: '', name: 'teacher.home', meta: { title: 'Dashboard Guru' }, component: () => import('@/views/teacher/HomeView.vue') },
+      { path: 'murid', name: 'teacher.murid', meta: { title: 'Murid' }, component: () => import('@/views/teacher/MuridView.vue') },
+      { path: 'guru', name: 'teacher.guru', meta: { title: 'Guru' }, component: () => import('@/views/teacher/GuruView.vue') },
+      { path: 'pelanggaran', name: 'teacher.pelanggaran', meta: { title: 'Pelanggaran' }, component: () => import('@/views/teacher/PelanggaranView.vue') },
+      { path: 'laporan', name: 'teacher.laporan', meta: { title: 'Laporan' }, component: () => import('@/views/teacher/LaporanView.vue') },
     ],
   },
   {
