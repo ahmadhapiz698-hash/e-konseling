@@ -1,26 +1,39 @@
+// Menu per peran, mengikuti dokumen (bagian 4 & 8). Pemeriksaan izin tetap wajib di backend.
 export function getMenus(role, home) {
-  const base = home || '/'
+  const b = home || '/'
+  const dash = { label: 'Dashboard', to: b, icon: 'grid' }
 
-  // Role yang halaman Murid, Guru, Pelanggaran, dan Laporan-nya sudah dibuat.
-  // Tambahkan role lain (mis. 'homeroom') ke daftar ini kalau halamannya sudah ada.
-  const hasPages = ['counselor', 'teacher'].includes(role)
-
-  const page = (label, path, icon) =>
-    hasPages ? { label, to: `${base}/${path}`, icon } : { label, href: '#', icon }
-
-  const staff = [
-    { label: 'Dashboard', to: base, icon: 'grid' },
-    page('Murid', 'murid', 'users'),
-    page('Guru', 'guru', 'graduation'),
-    page('Pelanggaran', 'pelanggaran', 'alert'),
-    page('Laporan', 'laporan', 'chart'),
-  ]
-
-  const student = [
-    { label: 'Dashboard', to: home || '/student', icon: 'grid' },
-    { label: 'Pelanggaran', to: '/student/pelanggaran', icon: 'alert' },
-    { label: 'Profil', to: '/student/profil', icon: 'user' },
-  ]
-
-  return role === 'student' ? student : staff
+  const menus = {
+    counselor: [
+      dash,
+      { label: 'Siswa', to: `${b}/murid`, icon: 'users' },
+      { label: 'Guru', to: `${b}/guru`, icon: 'graduation' },
+      { label: 'Konseling', to: `${b}/konseling`, icon: 'message' },
+      { label: 'Rujukan', to: `${b}/rujukan`, icon: 'clipboard' },
+      { label: 'Pelanggaran dan Poin', to: `${b}/pelanggaran`, icon: 'alert' },
+      { label: 'Kategori', to: `${b}/kategori`, icon: 'star' },
+      { label: 'Laporan', to: `${b}/laporan`, icon: 'chart' },
+      { label: 'Log Aktivitas', to: `${b}/log`, icon: 'file' },
+    ],
+    homeroom: [
+      dash,
+      { label: 'Siswa Kelas', to: `${b}/murid`, icon: 'users' },
+      { label: 'Rujukan', to: `${b}/rujukan`, icon: 'clipboard' },
+      { label: 'Pelanggaran dan Poin', to: `${b}/pelanggaran`, icon: 'alert' },
+    ],
+    teacher: [
+      dash,
+      { label: 'Siswa', to: `${b}/murid`, icon: 'users' },
+      { label: 'Rujukan', to: `${b}/rujukan`, icon: 'clipboard' },
+      { label: 'Kejadian', to: `${b}/pelanggaran`, icon: 'alert' },
+      { label: 'Laporan', to: `${b}/laporan`, icon: 'chart' },
+    ],
+    student: [
+      { label: 'Dashboard', to: home || '/student', icon: 'grid' },
+      { label: 'Konseling', to: '/student/konseling', icon: 'message' },
+      { label: 'Poin Saya', to: '/student/pelanggaran', icon: 'alert' },
+      { label: 'Profil', to: '/student/profil', icon: 'user' },
+    ],
+  }
+  return menus[role] || [dash]
 }

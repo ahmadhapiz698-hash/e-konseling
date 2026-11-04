@@ -24,9 +24,10 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: '', name: 'teacher.home', meta: { title: 'Dashboard Guru' }, component: () => import('@/views/teacher/HomeView.vue') },
-      { path: 'murid', name: 'teacher.murid', meta: { title: 'Murid' }, component: () => import('@/views/teacher/MuridView.vue') },
+      { path: 'murid', name: 'teacher.murid', meta: { title: 'Murid' }, component: () => import('@/views/shared/SiswaView.vue') },
       { path: 'guru', name: 'teacher.guru', meta: { title: 'Guru' }, component: () => import('@/views/teacher/GuruView.vue') },
-      { path: 'pelanggaran', name: 'teacher.pelanggaran', meta: { title: 'Pelanggaran' }, component: () => import('@/views/teacher/PelanggaranView.vue') },
+      { path: 'pelanggaran', name: 'teacher.pelanggaran', meta: { title: 'Pelanggaran dan Poin' }, component: () => import('@/views/shared/KejadianView.vue') },
+      { path: 'rujukan', name: 'teacher.rujukan', meta: { title: 'Rujukan' }, component: () => import('@/views/shared/RujukanView.vue') },
       { path: 'laporan', name: 'teacher.laporan', meta: { title: 'Laporan' }, component: () => import('@/views/teacher/LaporanView.vue') },
     ],
   },
@@ -36,6 +37,9 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: '', name: 'homeroom.home', meta: { title: 'Dashboard Wali Kelas' }, component: () => import('@/views/homeroom/HomeView.vue') },
+      { path: 'murid', name: 'homeroom.murid', meta: { title: 'Siswa Kelas' }, component: () => import('@/views/shared/SiswaView.vue') },
+      { path: 'rujukan', name: 'homeroom.rujukan', meta: { title: 'Rujukan' }, component: () => import('@/views/shared/RujukanView.vue') },
+      { path: 'pelanggaran', name: 'homeroom.pelanggaran', meta: { title: 'Pelanggaran dan Poin' }, component: () => import('@/views/shared/KejadianView.vue') },
     ],
   },
   {
@@ -52,9 +56,12 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: '', name: 'counselor.home', meta: { title: 'Dashboard Counselor' }, component: () => import('@/views/counselor/HomeView.vue') },
-      { path: 'pelanggaran', name: 'counselor.pelanggaran', meta: { title: 'Pelanggaran' }, component: () => import('@/views/counselor/PelanggaranView.vue') },
+      { path: 'pelanggaran', name: 'counselor.pelanggaran', meta: { title: 'Pelanggaran dan Poin' }, component: () => import('@/views/shared/KejadianView.vue') },
+      { path: 'konseling', name: 'counselor.konseling', meta: { title: 'Konseling' }, component: () => import('@/views/counselor/KonselingView.vue') },
+      { path: 'rujukan', name: 'counselor.rujukan', meta: { title: 'Rujukan' }, component: () => import('@/views/shared/RujukanView.vue') },
+      { path: 'log', name: 'counselor.log', meta: { title: 'Log Aktivitas' }, component: () => import('@/views/counselor/LogView.vue') },
       { path: 'kategori', name: 'counselor.kategori', meta: { title: 'Kategori' }, component: () => import('@/views/counselor/KategoriView.vue') },
-      { path: 'murid', name: 'counselor.murid', meta: { title: 'Murid' }, component: () => import('@/views/counselor/MuridView.vue') },
+      { path: 'murid', name: 'counselor.murid', meta: { title: 'Murid' }, component: () => import('@/views/shared/SiswaView.vue') },
       { path: 'guru', name: 'counselor.guru', meta: { title: 'Guru' }, component: () => import('@/views/counselor/GuruView.vue') },
       { path: 'laporan', name: 'counselor.laporan', meta: { title: 'Laporan' }, component: () => import('@/views/counselor/LaporanView.vue') },
     ],
@@ -75,6 +82,7 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: '', name: 'student.home', meta: { title: 'Dashboard Murid' }, component: () => import('@/views/student/HomeView.vue') },
+      { path: 'konseling', name: 'student.konseling', meta: { title: 'Konseling' }, component: () => import('@/views/student/KonselingView.vue') },
       { path: 'pelanggaran', name: 'student.pelanggaran', meta: { title: 'Pelanggaran Saya' }, component: () => import('@/views/student/PelanggaranView.vue') },
       { path: 'profil', name: 'student.profil', meta: { title: 'Profil Saya' }, component: () => import('@/views/student/ProfilView.vue') },
     ],
@@ -101,6 +109,13 @@ const router = createRouter({
 router.beforeEach((to) => {
   if (to.meta.requiresAuth && !isLoggedIn()) {
     return { name: 'login' }
+  }
+  // Penjaga peran (simulasi frontend; backend tetap wajib memeriksa izin).
+  const base = '/' + to.path.split('/')[1]
+  const bases = ['/teacher', '/homeroom', '/staff', '/counselor', '/student']
+  const sess = getSession()
+  if (sess && bases.includes(base) && sess.home !== base) {
+    return { name: 'error.403' }
   }
   if (to.name === 'login' && isLoggedIn()) {
     return getSession()?.home || '/'

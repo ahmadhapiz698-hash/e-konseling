@@ -5,10 +5,10 @@ const SESSION_KEY = 'pelanggaran-session'
 // Akun demo (tampilan awal) — password semua: 123.
 // Dipakai untuk mencoba aplikasi tanpa login ke data-center.
 export const DEMO_ACCOUNTS = {
-  guru: { password: '123', role: 'teacher', label: 'Guru', home: '/teacher' },
-  walikelas: { password: '123', role: 'homeroom', label: 'Wali Kelas', home: '/homeroom' },
-  bk: { password: '123', role: 'counselor', label: 'Counselor', home: '/counselor' },
-  murid: { password: '123', role: 'student', label: 'Murid', home: '/student' },
+  guru: { password: '123', role: 'teacher', label: 'Guru Mata Pelajaran', home: '/teacher', nama: 'Bu Sari' },
+  walikelas: { password: '123', role: 'homeroom', label: 'Wali Kelas', home: '/homeroom', nama: 'Pak Dedi', kelas: 'Kelas XI IPA 1' },
+  bk: { password: '123', role: 'counselor', label: 'Guru BK', home: '/counselor', nama: 'Bu Rina' },
+  murid: { password: '123', role: 'student', label: 'Siswa', home: '/student', nama: 'Ahmad Fauzi', studentId: 's1' },
 }
 export const ACCOUNTS = DEMO_ACCOUNTS
 
@@ -20,7 +20,9 @@ export function loginDemo(identity, password) {
 
   const session = {
     username: key,
-    name: key,
+    name: acc.nama || key,
+    kelas: acc.kelas || null,
+    studentId: acc.studentId || null,
     role: acc.role,
     label: acc.label,
     home: acc.home,
